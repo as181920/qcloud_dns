@@ -1,28 +1,22 @@
 # QcloudDns
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/qcloud_dns`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+腾讯云DNS解析DNSPOD
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'qcloud_dns'
+gem 'qcloud_dns', git: "git@github.com:as181920/qcloud_dns.git", branch: "master"
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install qcloud_dns
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+client = ApiClient.new(secret_id, secret_key)
+DomainService.new(client).call_method
+RecordService.new(client).call_method
+```
 
 ## Development
 
