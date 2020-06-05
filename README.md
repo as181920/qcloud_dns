@@ -14,8 +14,7 @@ gem 'qcloud_dns', git: "git@github.com:as181920/qcloud_dns.git", branch: "master
 
 ```ruby
 client = ApiClient.new(secret_id, secret_key)
-DomainService.new(client).call_method
-RecordService.new(client).call_method
+QcloudDns::RecordService.new(QcloudDns::ApiClient.new('secret_id', 'secret_key')).create(domain: "example.com", subDomain: "sub", recordType: "CNAME", recordLine: "默认", value: "target.com")
 ```
 
 ## Development

@@ -20,7 +20,7 @@ module QcloudDns
 
     private
       def sign(sign_params)
-        sign_text = sign_params.to_query # sign_params.sort.map{ |k, v| "#{k}=#{v}" }.join("&")
+        sign_text = sign_params.sort.map{ |k, v| "#{k}=#{v}" }.join("&")
         Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha1"), secret_key, "POST#{URI.parse(API_URL).host}#{URI.parse(API_URL).path}?#{sign_text}"))
       end
   end

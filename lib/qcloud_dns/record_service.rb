@@ -7,7 +7,7 @@ module QcloudDns
     end
 
     def create(params={})
-      client.perform(domain: "")
+      client.perform params.merge(Action: "RecordCreate")
     end
   end
 end
