@@ -18,7 +18,11 @@ module QcloudDns
       if params[:recordId].present?
         client.perform params.merge(Action: "RecordModify")
       elsif params[:subDomain].present? && params[:recordType].present?
-        record_id = JSON.load(list(params).body).dig("data", "records")&.detect{ |attrs| attrs["name"].eql?(params[:subDomain]) && attrs["type"].eql?(params[:recordType]) && attrs["status"].eql?("enabled") }&.dig("id")
+        record_id = JSON.parse(list(params.slice(:domain, :subDomain)).body).dig("data", "records")&.detect do |attrs|
+          attrs["name"].eql?(params[:subDomain]) && attrs["type"].eql?(params[:recordType]) && attrs["status"].eql?("enabled")
+        end&.dig("id")
+        raise QcloudDns::Error, "No enabled DNS record matches the requested name and type" unless record_id
+
         client.perform params.merge(Action: "RecordModify", recordId: record_id)
       else
         raise "params not valid!"
